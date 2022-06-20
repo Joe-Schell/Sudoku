@@ -14,10 +14,28 @@ board1 = [
 
 ROWS, COLS = len(board1), len(board1[0])
 
+
+# Function that solves a sudoku board
+# @param: board - a 2D array example board
+# @return:
+def solve(board):
+    find = find_empty(board)
+    # Base Case: We found no empty cells remaining
+    if not find:
+        return True
+    # Else, we return the empty cell and store in Find
+    else:
+        row, col = find
+    # Loop from 1 - 9 since this is the set of valid numbers in a board
+    for i in range(1, 10):
+        if valid(board[row]):
+
+
 # Function that checks if a sudoku board is valid
 # @param: board - a 2D array example board
 # @return: True or False
 def valid(board):
+    # Hashset solution: O(N^2) time | O(N^2) space
     cols = collections.defaultdict(set)
     rows = collections.defaultdict(set)
     squares = collections.defaultdict(set)
@@ -39,16 +57,6 @@ def valid(board):
             squares[(r // 3, c // 3)].add(board[r][c])
 
     return True
-
-
-
-# Function that solves a sudoku board
-# @param: board - a 2D array example board
-# @return:
-#def solve(board):
-
-
-
 
 # Function that prints the board
 # @param: board - a 2D array example board
