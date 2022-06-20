@@ -1,5 +1,3 @@
-import collections
-
 board1 = [
     [7,8,0,4,0,0,1,2,0],
     [6,0,0,0,7,5,0,0,9],
@@ -11,8 +9,6 @@ board1 = [
     [1,2,0,0,0,7,4,0,0],
     [0,4,9,2,0,6,0,0,7]
 ]
-
-ROWS, COLS = len(board1), len(board1[0])
 
 
 # Function that solves a sudoku board
@@ -51,10 +47,10 @@ def valid(board, row, col, num):
 
 # Function that prints the board
 def print_board(board):
-    for i in range(ROWS):
+    for i in range(len(board)):
         if i % 3 == 0 and i != 0:
             print("- - - - - - - - - - - - - ")
-        for j in range(COLS):
+        for j in range(len(board[0])):
             if j % 3 == 0 and j != 0:
                 print(" | ", end="")
             if j == 8:
@@ -65,12 +61,13 @@ def print_board(board):
 
 # Function that finds empty cell in the Sudoku board
 def find_empty(board):
-    for i in range(ROWS):
-        for j in range(COLS):
+    for i in range(len(board)):
+        for j in range(len(board[0])):
             if board[i][j] == 0:
                 return (i, j)  # row, col
 
     return None
+
 
 print_board(board1)
 print("solving....")
