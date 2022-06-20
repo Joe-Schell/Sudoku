@@ -1,3 +1,5 @@
+import collections
+
 board1 = [
     [7,8,0,4,0,0,1,2,0],
     [6,0,0,0,7,5,0,0,9],
@@ -12,6 +14,42 @@ board1 = [
 
 ROWS, COLS = len(board1), len(board1[0])
 
+# Function that checks if a sudoku board is valid
+# @param: board - a 2D array example board
+# @return: True or False
+def valid(board):
+    cols = collections.defaultdict(set)
+    rows = collections.defaultdict(set)
+    squares = collections.defaultdict(set)
+
+    for r in range(len(board)):
+        for c in range(len(board[0])):
+            # Empty space is found, continue to next iteration
+            if board[r][c] == 0:
+                continue
+
+            # If number in the board is already in the row / col / square, return False
+            if (board[r][c] in rows[r] or board[r][c] in cols[c] or
+                board[r][c] in squares[(r // 3, c // 3)]):
+                return False
+
+            # Update hashsets
+            cols[c].add(board[r][c])
+            rows[r].add(board[r][c])
+            squares[(r // 3, c // 3)].add(board[r][c])
+
+    return True
+
+
+
+# Function that solves a sudoku board
+# @param: board - a 2D array example board
+# @return:
+#def solve(board):
+
+
+
+
 # Function that prints the board
 # @param: board - a 2D array example board
 # @return: None (prints to console)
@@ -22,16 +60,13 @@ def print_board(board):
         for j in range(COLS):
             if j % 3 == 0 and j != 0:
                 print(" | ", end="")
-            # Check for last position
             if j == 8:
                 print(board[i][j])
             else:
                 print(str(board[i][j]) + " ", end="")
 
 
-print_board(board1)
-
-# Function that finds all empty cells in the Sudoku board
+# Function that finds empty cell in the Sudoku board
 # @param: board - a 2D array example board
 # @return: Empty cell or None
 def find_empty(board):
@@ -41,3 +76,7 @@ def find_empty(board):
                 return (i, j)  # row, col
 
     return None
+
+print_board(board1)
+var = valid(board1)
+print(var)
